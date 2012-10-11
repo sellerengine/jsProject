@@ -15,7 +15,9 @@
 
     paths: {
         "jquery": "../../../jsProject/lib/jquery-1.8.2.min",
-        "lib": "../../../jsProject/lib"
+        "lib": "../../../jsProject/lib",
+        "cs": "../../../jsProject/lib/cs",
+        "coffee-script": "../../../jsProject/lib/cs",
     },
 
     modules: [
@@ -23,7 +25,10 @@
             name: "lib/se"
         },
         {
-            name: "main"
+            name: "loader",
+            exclude: [ "jquery", "coffee-script" ]
         }
-    ]
+    ],
+
+    stubModules: [ "cs" ]
 })

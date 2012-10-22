@@ -1,5 +1,5 @@
 
-require ["lib/se"], () ->
+require ["cs!lib/se"], () ->
     $ () ->
         box = new se.w.ListBox()
         box.addOption "dog", "I want a puppy!"

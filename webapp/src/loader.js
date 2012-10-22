@@ -13,6 +13,7 @@ requirejs.config({
         'jquery': '../lib/jquery-1.8.2.min',
         'lib': '../lib'
     }
+    , stubModules: [ "coffee-script", "cs" ]
 });
 
 require(["cs!main"], function() {

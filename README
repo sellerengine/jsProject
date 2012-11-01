@@ -1,7 +1,8 @@
 jsProject
 =========
-A flexible base for developing and deploying javascript projects.
-Includes jQuery and coffeescript support by default.
+A flexible base for developing and deploying javascript projects based around RequireJS.
+
+Includes jQuery and coffeescript support by default, as well as an added module for css support.
 
 Usage
 =====

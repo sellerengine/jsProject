@@ -25,7 +25,7 @@ class MainRoot(object):
     """Example web server root object for development.
     """
 
-    src = StaticServer(_DIR + '/webapp/src')
+    src = StaticServer(_DIR + '/webapp')
 
     @cherrypy.expose
     def index(self):

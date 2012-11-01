@@ -1,6 +1,7 @@
 
 import cherrypy
 import os
+import time
 
 _DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _DIR_doc = """Project dir"""
@@ -20,7 +21,6 @@ class StaticServer(object):
         return cherrypy.lib.static.serve_file(f)
 
 
-
 class MainRoot(object):
     """Example web server root object for development.
     """
@@ -30,4 +30,10 @@ class MainRoot(object):
     @cherrypy.expose
     def index(self):
         return cherrypy.lib.static.serve_file(_DIR + '/webapp/app.html')
+
+
+    @cherrypy.expose
+    @cherrypy.config(**{ 'response.headers.Content-Type': 'application/json' })
+    def json(self):
+        return '{"result":"jsonResult!!!"}'
 

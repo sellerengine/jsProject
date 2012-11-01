@@ -114,15 +114,19 @@ def tryBuild():
 
 
 if __name__ == '__main__':
-    # Support an app.ini file, as well as a cherrypy_local.ini for 
-    # configuration of this specific app
+    # Support an app.ini file, as well as an app_local.ini for 
+    # configuration of this specific deployment of the app
     appConfig = cherrypy.lib.reprconf.Config()
     baseConfig = os.path.join(_DIR, 'app.ini')
     if os.path.isfile(baseConfig):
+        # This app has a default configuration
+        cherrypy.engine.autoreload.files.add(baseConfig)
         appConfig.merge(baseConfig)
-    otherConfig = os.path.join(_DIR, 'app_local.ini')
-    if os.path.isfile(otherConfig):
-        appConfig.merge(otherConfig)
+    localConfig = os.path.join(_DIR, 'app_local.ini')
+    if os.path.isfile(localConfig):
+        # This app's deployment has a local configuration
+        cherrypy.engine.autoreload.files.add(localConfig)
+        appConfig.merge(localConfig)
 
     # Mount our config object
     cherrypy.app = appConfig

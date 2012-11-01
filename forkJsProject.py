@@ -43,4 +43,5 @@ Will be created in sibling directory.
     safeRemove(os.path.join(projectName, 'r.js'))
     safeRemove(os.path.join(projectName, 'forkJsProject.py'))
     safeRemove(os.path.join(projectName, '.git'))
+    safeRemove(os.path.join(projectName, 'README'))
 

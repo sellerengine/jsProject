@@ -1,0 +1,11 @@
+jsProject
+=========
+A flexible base for developing and deploying javascript projects.
+Includes jQuery and coffeescript support by default.
+
+Usage
+=====
+Run ./forkJsProject.py {project name} to fork a new jsProject in a sibling folder.  The new project will refer to jsProject itself through relative paths, and is a skeleton demonstration of what a compiling project looks like.  
+
+The base of your new project's javascript (or coffeescript) code will be in webapp/src.  There is also a demonstration web server in server/, which of course may be replaced if desired (or if you don't use cherrypy).
+

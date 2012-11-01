@@ -8,6 +8,13 @@ Example usage:
 ./run.py (Runs in development mode)
 ./run.py --build (Compiles and runs the compiled code)
 ./run.py --build-only (Compiles only, and exits)
+
+This file relies heavily on cherrypy.
+
+Note that since cherrypy.config is an object only for [global] sections of
+application config, we re-route any of those to cherrypy.config.  Any other
+sections are rerouted to a new reprconf.Config object, which we make available
+via cherrypy.app
 """
 
 import cherrypy
@@ -17,6 +24,20 @@ import subprocess
 import sys
 
 from server.main import MainRoot, StaticServer, _DIR
+
+def mergeConfig(self, *args, **kwargs):
+    """Augment cherrypy.lib.reprconf.Config with a method that merges top-level
+    dicts into each other, so that app_local.ini can specify a minor subset
+    of options and still get defaults from app.ini.
+    """
+    other = cherrypy.lib.reprconf.Config(*args, **kwargs)
+    # Top-level keys are namespaces to merge, second level should get replaced
+    for k, v in other.items():
+        mergeFrom = self.get(k, {})
+        mergeFrom.update(v)
+        self[k] = v
+cherrypy.lib.reprconf.Config.merge = mergeConfig
+
 
 def getLatestSource():
     """Return the latest timestamp for files that go into the source of this
@@ -93,36 +114,42 @@ def tryBuild():
 
 
 if __name__ == '__main__':
-    root = MainRoot()
+    # Support an app.ini file, as well as a cherrypy_local.ini for 
+    # configuration of this specific app
+    appConfig = cherrypy.lib.reprconf.Config()
+    baseConfig = os.path.join(_DIR, 'app.ini')
+    if os.path.isfile(baseConfig):
+        appConfig.merge(baseConfig)
+    otherConfig = os.path.join(_DIR, 'app_local.ini')
+    if os.path.isfile(otherConfig):
+        appConfig.merge(otherConfig)
 
+    # Mount our config object
+    cherrypy.app = appConfig
+    # and apply global config back to cherrypy
+    cherrypy.config.update(appConfig.get('global', {}))
+
+    if '--build-only' in sys.argv:
+        # Build and exit
+        if not tryBuild():
+            print("Up to date")
+        sys.exit(0)
+    elif '--build' in sys.argv:
+        # Do we need to compile?
+        if not tryBuild():
+            cherrypy.log("Build skipped - up to date")
+
+    root = MainRoot()
     # Disable caching - if we don't, then between built and development
     # versions the web browser won't re-send requests.  Note that we could
     # also come up with a scheme where the URL changes when the version
     # changes.
     root._cp_config = { 'response.headers.Cache-Control': 'No-Cache' }
 
-    # Support a cherrypy.ini file, as well as a cherrypy_local.ini for 
-    # configuration of this specific app
-    baseConfig = os.path.join(_DIR, 'cherrypy.ini')
-    if os.path.isfile(baseConfig):
-        cherrypy.config.update(baseConfig)
-    otherConfig = os.path.join(_DIR, 'cherrypy_local.ini')
-    if os.path.isfile(otherConfig):
-        cherrypy.config.update(otherConfig)
-
-    if '--build-only' in sys.argv:
-        if not tryBuild():
-            print("Up to date")
-        sys.exit(0)
-
     if '--build' in sys.argv:
         # Running compiled version, redirect src to built version
         cherrypy.log("Using build/ rather than webapp/")
         root.src = StaticServer(_DIR + '/build')
-
-        # Do we need to compile?
-        if not tryBuild():
-            cherrypy.log("Build skipped - up to date")
     else:
         # Add the lib dir, rewrite src/require.js to lib/require.js
         root.lib = StaticServer(_DIR + '/../jsProject/lib')

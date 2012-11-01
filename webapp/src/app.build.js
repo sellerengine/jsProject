@@ -4,7 +4,8 @@
     dir: "../../build",
     //Comment out the optimize line if you want
     //the code minified by UglifyJS (or set to "uglify")
-    optimize: "none",
+    //optimize: "none",
+    optimizeCss: 'standard',
 
     //onBuildWrite: function(moduleName, path, contents) {
     //    //Ensure that we replace cs! dependencies with plain dependencies.
@@ -22,6 +23,7 @@
         "jquery": "../../../jsProject/lib/jquery-1.8.2.min",
         "lib": "../../../jsProject/lib",
         "cs": "../../../jsProject/lib/cs",
+        "css": "../../../jsProject/lib/css",
         "coffee-script": "../../../jsProject/lib/coffee-script",
     },
 
@@ -31,5 +33,5 @@
         }
     ],
 
-    stubModules: [ "coffee-script", "cs", "loader" ]
+    stubModules: [ "coffee-script", "cs", "css", "loader" ]
 })

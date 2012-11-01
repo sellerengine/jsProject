@@ -9,6 +9,7 @@ requirejs.config({
     }
     , paths: {
         'cs': '../lib/cs',
+        'css': '../lib/css',
         'coffee-script': '../lib/coffee-script',
         'jquery': '../lib/jquery-1.8.2.min',
         'lib': '../lib'

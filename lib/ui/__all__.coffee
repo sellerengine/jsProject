@@ -1,5 +1,5 @@
 define(
-    [ "cs!lib/se.w/listbox" ]
+    [ "cs!lib/ui/listbox" ]
     (ListBox) ->
         widgets =
             ListBox: ListBox

@@ -1,5 +1,5 @@
 define(
-    [ "cs!lib/se.uibase" ]
+    [ "cs!lib/ui.base" ]
     (UiBase) ->
         class ListBox extends UiBase
             constructor: () ->

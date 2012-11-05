@@ -1,4 +1,4 @@
-require ["css!lib/reset", "css!main", "cs!lib/ui"], () ->
+define ["css!lib/reset", "css!main", "cs!lib/ui"], () ->
     $ () ->
         box = new ui.ListBox()
         box.addOption "dog", "I want a puppy!"

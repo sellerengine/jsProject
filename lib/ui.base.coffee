@@ -3,7 +3,8 @@ define(
     () ->
         class UiBase extends $
             constructor: (root) ->
-                root = root && root.domroot || root
+                if typeof root == 'string'
+                    root = $(root)
                 this.length = 1
                 this[0] = root[0]
                 this._root = root

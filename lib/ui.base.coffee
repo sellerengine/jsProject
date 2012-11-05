@@ -7,7 +7,7 @@ define(
                 this.length = 1
                 this[0] = root[0]
                 this._root = root
-                this._root.addClass("se-ui-base")
+                this._root.addClass("ui-base")
                 this._root.data("ui-base", this)
 
         UiBase.fromDom = (dom) ->

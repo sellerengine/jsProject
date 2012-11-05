@@ -35,7 +35,7 @@ def mergeConfig(self, *args, **kwargs):
     for k, v in other.items():
         mergeFrom = self.get(k, {})
         mergeFrom.update(v)
-        self[k] = v
+        self[k] = mergeFrom
 cherrypy.lib.reprconf.Config.merge = mergeConfig
 
 

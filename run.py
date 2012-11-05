@@ -106,7 +106,10 @@ def tryBuild():
                 os.remove(os.path.join(tempBuild, f))
 
     # OK, now we just need to unlink the old build and replace it
-    shutil.rmtree(buildDir)
+    try:
+        shutil.rmtree(buildDir)
+    except OSError:
+        pass
     os.rename(tempBuild, buildDir)
 
     # Build success

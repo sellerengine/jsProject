@@ -1,0 +1,9 @@
+.ui-dialog {
+	/* Default styling */
+	position: absolute;
+	display: inline-block;
+	background-color: #fff;
+	border: solid 1px #000;
+	border-radius: 0.5em;
+	padding: 1em;
+}

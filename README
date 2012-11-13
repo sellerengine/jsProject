@@ -10,3 +10,24 @@ Run ./forkJsProject.py {project name} to fork a new jsProject in a sibling folde
 
 The base of your new project's javascript (or coffeescript) code will be in webapp/src.  There is also a demonstration web server in server/, which of course may be replaced if desired (or if you don't use cherrypy).
 
+NOTE ABOUT CHERRYPY AND app.ini
+===============================
+Default CherryPy applications use a section called [global] in your 
+application's ini file to denote server and tool options.  The reason we don't
+do this is that reprconf does really weird things if you use cherrypy's built-in
+variable cherrypy.config (because it assumes that if the file being passed to
+cherrypy.config includes a [global] section, then other sections are 
+URL-specific).  jsProject relies on running in its own instance and being
+routed via e.g. nginx though, and has no need for path configuration.  
+
+To highlight this difference, please specify cherrypy options in a [cherrypy]
+section rather than [global].
+
+Running a forked application
+============================
+./run.py is provided as part of the source of a forked application; it handles all of the paths and whatnot necessary to run the application.  Just run this 
+file from a desired working directory.
+
+The current working directory will be used for app_local.ini (NOT app.ini) and 
+is preserved for program execution.
+

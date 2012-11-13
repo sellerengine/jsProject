@@ -125,7 +125,10 @@ if __name__ == '__main__':
         # This app has a default configuration
         cherrypy.engine.autoreload.files.add(baseConfig)
         appConfig.merge(baseConfig)
-    localConfig = os.path.join(_DIR, 'app_local.ini')
+        
+    # app_local.ini is a deployment-level config, and therefore should rely
+    # on current working directory, NOT on _DIR
+    localConfig = 'app_local.ini'
     if os.path.isfile(localConfig):
         # This app's deployment has a local configuration
         cherrypy.engine.autoreload.files.add(localConfig)
@@ -134,7 +137,7 @@ if __name__ == '__main__':
     # Mount our config object
     cherrypy.app = appConfig
     # and apply global config back to cherrypy
-    cherrypy.config.update(appConfig.get('global', {}))
+    cherrypy.config.update(appConfig.get('cherrypy', {}))
 
     if '--build-only' in sys.argv:
         # Build and exit

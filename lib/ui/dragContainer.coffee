@@ -18,6 +18,7 @@ define [ "cs!lib/ui.base" ], (UiBase) ->
             (that's pageX and pageY)
             ###
             @_dragElement = child
+            @_dragIndexFrom = child.index()
             @_dragLastSwap = null
             @_dragStart = 
                 x: x
@@ -40,6 +41,10 @@ define [ "cs!lib/ui.base" ], (UiBase) ->
                 @_dragElement.css(@_oldDragElementCss)
                 $(document).unbind("mousemove.dragContainer")
                 $(document).unbind("mouseup.dragContainer")
+                
+                newIndex = @_dragElement.index()
+                if @options.afterDrag and newIndex != @_dragIndexFrom
+                    @options.afterDrag(@_dragElement, @_dragIndexFrom)
             else if e.type == "mousemove"
                 # See if we have a new position
                 cursor =

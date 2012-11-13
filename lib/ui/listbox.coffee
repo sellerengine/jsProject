@@ -13,9 +13,27 @@ define(
                 this.append(opt)
                 if this.children().length == 1
                     this.trigger('change')
+                    
+                    
+            remove: (val, newVal) ->
+                ### Remove the specified value from our options
+                ###
+                wasSelected = (@val() == val)
+                
+                for opt in @children()
+                    if $(opt).val() == val
+                        $(opt).remove()
+                
+                if wasSelected
+                    if newVal?
+                        @select(newVal)
+                    else
+                        @trigger('change')
+
 
             reset: () ->
                 this.empty()
+
 
             select: (value) ->
                 this.val(value).trigger('change')

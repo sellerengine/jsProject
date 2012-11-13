@@ -1,6 +1,6 @@
 define ["cs!lib/ui.base", "css!lib/ui/shade"], (UiBase) ->
     # Z-index for next shade
-    shadeZ = 100
+    shades = []
     class ShadeOverlay extends UiBase
         constructor: (el, options) ->
             if not (el instanceof $)
@@ -10,7 +10,7 @@ define ["cs!lib/ui.base", "css!lib/ui/shade"], (UiBase) ->
             super('<div class="ui-shade"></div>')
             @insertBefore(el)
             @_elementZindex = @element.css('z-index')
-            @element.css('z-index', shadeZ++)
+            @element.css('z-index', 100 + shades.length)
 
             @bind("click", () =>
                 @hide()
@@ -20,6 +20,8 @@ define ["cs!lib/ui.base", "css!lib/ui/shade"], (UiBase) ->
                 () => @_checkElement()
                 100
             )
+            
+            shades.push(@)
 
 
         hide: () ->
@@ -27,7 +29,11 @@ define ["cs!lib/ui.base", "css!lib/ui/shade"], (UiBase) ->
             if @options.hide
                 @options.hide()
             @remove()
-            shadeZ--
+            
+            for q, i in shades
+                if q == @
+                    shades.splice(i, 1)
+                    break
 
 
         _checkElement: () ->
@@ -36,6 +42,10 @@ define ["cs!lib/ui.base", "css!lib/ui/shade"], (UiBase) ->
 
 
     Shade =
+        hide: () ->
+            # Hide the top shade
+            shades[shades.length - 1].hide()
+            
         show: (el, options) ->
             new ShadeOverlay(el, options)
 

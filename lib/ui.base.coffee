@@ -24,5 +24,11 @@ define(
                 dom = $([dom])
             return dom.data('ui-base') || null
 
+        cmDiv = $(
+            '<div style="display:inline-block;width:1cm;height:1cm;"></div>');
+        cmDiv.appendTo('body');
+        UiBase.pixelsPerCm = cmDiv.width()
+        cmDiv.remove();
+
         return UiBase
 )

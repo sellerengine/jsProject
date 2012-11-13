@@ -1,0 +1,9 @@
+.ui-tooltip {
+    position: absolute;
+    display: inline-block;
+    background-color: #fff;
+    border: solid 1px #888;
+    border-radius: 0.25em;
+    padding: 0.25em;
+    z-index: 99999;
+}

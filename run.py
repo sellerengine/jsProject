@@ -11,10 +11,11 @@ Example usage:
 
 This file relies heavily on cherrypy.
 
-Note that since cherrypy.config is an object only for [global] sections of
-application config, we re-route any of those to cherrypy.config.  Any other
-sections are rerouted to a new reprconf.Config object, which we make available
-via cherrypy.app
+Note that since cherrypy.config does special handling and ends up itself only
+holding information in the [global] section, our app.ini and app_local.ini 
+files will re-route any [cherrypy] sections to the cherrypy.config object.
+Any other sections are rerouted to a new reprconf.Config object, which we 
+make available via cherrypy.app
 """
 
 import cherrypy

@@ -2,10 +2,10 @@ define ["cs!lib/ui/dialog"], (Dialog) ->
     class ButtonDialog extends Dialog
         constructor: (options) ->
             @dlgOptions = $.extend({}, options)
-            body = $('<div class="ui-button-dialog"></div>')
+            body = $('<div class="jspui-button-dialog"></div>')
             body.text(@dlgOptions.prompt or '(no prompt)')
             
-            buttonDiv = $('<div class="ui-button-dialog-buttons"></div>')
+            buttonDiv = $('<div class="jspui-button-dialog-buttons"></div>')
                 .appendTo(body)
             for btn of @dlgOptions.buttons
                 callback = ((btn) =>

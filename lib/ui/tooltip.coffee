@@ -10,7 +10,7 @@ define [ "cs!lib/ui.base", "css!lib/ui/tooltip" ], (UiBase) ->
             # options - left, top, html, preferLeft
             curTip = @
             @options = options
-            super('<div class="ui-tooltip"></div>')
+            super('<div class="jspui-tooltip"></div>')
             @html(options.html)
             @css
                 # Note - we have to add an offset to X so that mouse movement

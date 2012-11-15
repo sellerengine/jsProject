@@ -7,7 +7,7 @@ define ["cs!lib/ui.base", "css!lib/ui/shade"], (UiBase) ->
                 el = $(el)
             @element = el
             @options = options
-            super('<div class="ui-shade"></div>')
+            super('<div class="jspui-shade"></div>')
             @insertBefore(el)
             @_elementZindex = @element.css('z-index')
             @css('z-index', 100 + 2*shades.length)

@@ -70,7 +70,7 @@ define([
             Defaults to white-space: nowrap, e.g. single line.  Must be
             removed after use.
             ###
-            tester = $('<span class="ui-textbox-tester"></span>')
+            tester = $('<span class="jspui-textbox-tester"></span>')
                 .text(@val())
                 .css
                     fontSize: @css('fontSize')

@@ -1,0 +1,2 @@
+Stock, lightweight UI widget system based around classes.  All styles should
+be prefixed with jspui- to keep it separate from other libraries.

@@ -14,12 +14,12 @@ define([ "jquery", "css!lib/ui.base" ], () ->
             this.length = 1
             this[0] = root[0]
             this._root = root
-            this._root.addClass("ui-base")
-            this._root.data("ui-base", this)
+            this._root.addClass("jspui-base")
+            this._root.data("jspui-base", this)
             
             # No select?
             if options.noSelect
-                this.addClass('ui-base-noselect')
+                this.addClass('jspui-base-noselect')
                 this.bind('mousedown', (e) -> e.preventDefault())
 
             # jQuery uses the "constructor" method, so re-assign it on
@@ -41,7 +41,7 @@ define([ "jquery", "css!lib/ui.base" ], () ->
             dom = $(dom)
         else if dom not instanceof $
             dom = $([dom])
-        return dom.data('ui-base') || null
+        return dom.data('jspui-base') || null
 
     cmDiv = $(
         '<div style="display:inline-block;width:1cm;height:1cm;"></div>');

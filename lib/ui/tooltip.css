@@ -1,4 +1,6 @@
-.ui-tooltip {
+
+/* Not just ui-tooltip to avoid conflict with other libraries */
+.jspui-tooltip {
     position: absolute;
     display: inline-block;
     background-color: #fff;

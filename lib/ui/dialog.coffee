@@ -13,7 +13,7 @@ define(["cs!lib/ui.base", "cs!lib/ui/shade",
         constructor: (options) ->
             @dlgOptions = options
             
-            super('<div class="ui-dialog"></div>')
+            super('<div class="jspui-dialog"></div>')
             ww = $(window).width()
             wh = $(window).height()
             wl = $(window).scrollLeft()

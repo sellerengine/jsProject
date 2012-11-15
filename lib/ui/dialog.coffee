@@ -11,7 +11,7 @@ module = (UiBase, Shade) ->
         ###
         
         constructor: (options) ->
-            @options = options
+            @dlgOptions = options
             
             super('<div class="ui-dialog"></div>')
             ww = $(window).width()
@@ -21,14 +21,14 @@ module = (UiBase, Shade) ->
             dw = $(document).width()
             dh = $(document).height()
 
-            if @options.body?
-                @append(@options.body)
+            if @dlgOptions.body?
+                @append(@dlgOptions.body)
                 
             preAddCss = {}
-            if @options.width?
-                preAddCss.width = @options.width + 'px'
-            if @options.height?
-                preAddCss.height = @options.height + 'px'
+            if @dlgOptions.width?
+                preAddCss.width = @dlgOptions.width + 'px'
+            if @dlgOptions.height?
+                preAddCss.height = @dlgOptions.height + 'px'
             @css(preAddCss)
             
             @appendTo('body')
@@ -41,8 +41,8 @@ module = (UiBase, Shade) ->
                 position: 'absolute'
                 left: wl + dialogX + 'px'
                 top: wt + dialogY + 'px'
-                width: @options.width + 'px'
-                height: @options.height + 'px'
+                width: @dlgOptions.width + 'px'
+                height: @dlgOptions.height + 'px'
                 
             Shade.show(@, hide: () => @remove())
                 

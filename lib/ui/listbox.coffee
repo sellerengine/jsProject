@@ -6,12 +6,15 @@ define(
                 super $('<select></select>')
                 if options.multiple
                     this.attr('multiple', 'multiple')
+                    
+                @reset()
 
             addOption: (value, label = value) ->
                 opt = $('<option></option>');
                 opt.val(value).text(label)
                 this.append(opt)
-                if this.children().length == 1
+                if @_isFirst
+                    @_isFirst = false
                     this.trigger('change')
                     
                     
@@ -33,6 +36,7 @@ define(
 
             reset: () ->
                 this.empty()
+                @_isFirst = true
 
 
             select: (value) ->

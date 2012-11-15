@@ -1,15 +1,15 @@
 define ["cs!lib/ui/dialog"], (Dialog) ->
     class ButtonDialog extends Dialog
         constructor: (options) ->
-            @options = $.extend({}, options)
+            @dlgOptions = $.extend({}, options)
             body = $('<div class="ui-button-dialog"></div>')
-            body.text(@options.prompt or '(no prompt)')
+            body.text(@dlgOptions.prompt or '(no prompt)')
             
             buttonDiv = $('<div class="ui-button-dialog-buttons"></div>')
                 .appendTo(body)
-            for btn of @options.buttons
+            for btn of @dlgOptions.buttons
                 callback = ((btn) =>
-                    btnCallback = @options.buttons[btn]
+                    btnCallback = @dlgOptions.buttons[btn]
                     () =>
                         if btnCallback?
                             btnCallback()
@@ -21,6 +21,6 @@ define ["cs!lib/ui/dialog"], (Dialog) ->
                     .bind("click", callback)
                     .appendTo(buttonDiv)
             
-            @options.body = body
-            super(@options)
+            @dlgOptions.body = body
+            super(@dlgOptions)
     

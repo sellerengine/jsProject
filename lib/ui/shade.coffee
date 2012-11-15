@@ -10,7 +10,8 @@ define ["cs!lib/ui.base", "css!lib/ui/shade"], (UiBase) ->
             super('<div class="ui-shade"></div>')
             @insertBefore(el)
             @_elementZindex = @element.css('z-index')
-            @element.css('z-index', 100 + shades.length)
+            @css('z-index', 100 + 2*shades.length)
+            @element.css('z-index', 100 + 2*shades.length + 1)
 
             @bind("click", () =>
                 @hide()

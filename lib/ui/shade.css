@@ -1,5 +1,5 @@
 .ui-shade {
-    z-index: 99;
+    /* z-index filled in by code */
     position: fixed;
     left: 0;
     top: 0;

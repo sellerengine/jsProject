@@ -6,6 +6,14 @@ define [ "cs!lib/ui.base" ], (UiBase) ->
         ###
 
         constructor: (options) ->
+            options = $.extend(
+                {
+                    afterDrag: null
+                    childSelector: null
+                    handleSelector: null
+                }
+                options
+            )
             @options = options
             super(@options.root)
 
@@ -50,7 +58,7 @@ define [ "cs!lib/ui.base" ], (UiBase) ->
                 cursor =
                     x: e.pageX
                     y: e.pageY
-                for c in @children()
+                for c in @_draggables
                     # Can we even drag here?
                     if @options.handleSelector?
                         if $(@options.handleSelector, c).length == 0
@@ -89,15 +97,23 @@ define [ "cs!lib/ui.base" ], (UiBase) ->
 
         _onMouseDown: (e) ->
             # Find which child, if any, the event was over
+            
+            # Find our set of draggable items
+            @_draggables = null
+            @_draggables = null
+            if @options.childSelector?
+                @_draggables = $(@options.childSelector, @)
+            else
+                @_draggables = @children()
+                
             child = $(e.target)
             pathToTarget = []
             while child.length != 0
-                next = child.parent()
-                # If the next parent is us, then child is right
-                if next[0] == @[0]
+                # If this child is a draggable, child is right
+                if $.inArray(child[0], @_draggables) >= 0
                     break
                 pathToTarget.push(child[0])
-                child = next
+                child = child.parent()
             if child.length == 0
                 # Nothing found, who cares
                 return

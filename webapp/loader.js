@@ -5,6 +5,10 @@ requirejs.config({
         'jquery': {
             deps: [],
             exports: '$'
+        },
+        'jquery.ui': {
+        	deps: ['jquery','css!jquery.ui.theme/jquery-ui-custom'],
+        	exports: '$.ui'
         }
     }
     , paths: {
@@ -12,6 +16,7 @@ requirejs.config({
         'css': '../lib/css',
         'coffee-script': '../lib/coffee-script',
         'jquery': '../lib/jquery-1.8.2.min',
+        "jquery.ui": "../lib/plugins/jquery.ui/jquery-ui-1.9.1.min",
         'lib': '../lib'
     }
 });

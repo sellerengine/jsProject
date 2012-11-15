@@ -1,0 +1,5 @@
+Note - nothing in this folder should be linked in from jsProject itself;
+it is up to the client (forked) application to require these modules.
+
+For instance, this saves jquery.ui just being compiled in without it being
+needed by the forked application.

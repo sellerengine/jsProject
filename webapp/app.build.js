@@ -8,7 +8,7 @@
     dir: "../build.new",
     //Comment out the optimize line if you want
     //the code minified by UglifyJS (or set to "uglify")
-    //optimize: "none",
+    optimize: "none",
     optimizeCss: 'standard',
 
     keepBuildDir: true,
@@ -22,11 +22,16 @@
         'jquery': {
             deps: [],
             exports: '$'
+        },
+        'jquery.ui': {
+        	deps: ['jquery','css!jquery.ui.theme/jquery-ui-custom'],
+        	exports: '$.ui'
         }
     },
 
     paths: {
         "jquery": "../../jsProject/lib/jquery-1.8.2.min",
+        "jquery.ui": "../../jsProject/lib/plugins/jquery.ui/jquery-ui-1.9.1.min",
         "lib": "../../jsProject/lib",
         "cs": "../../jsProject/lib/cs",
         "css": "../../jsProject/lib/css",

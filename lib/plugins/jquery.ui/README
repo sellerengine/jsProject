@@ -1,0 +1,3 @@
+jquery.ui through jsProject requires a jquery.ui.theme folder in your forked 
+application's webapp directory.  In that folder should be the CSS and image
+files required (jquery-ui-custom.css and the images folder).

@@ -51,7 +51,7 @@ def getLatestSource():
         sourceDir = os.path.join(_DIR, sourceDir)
         for dir, subdirs, files in os.walk(sourceDir):
             for f in files:
-                fpath = os.path.join(sourceDir, f)
+                fpath = os.path.join(sourceDir, dir, f)
                 if os.path.isfile(fpath):
                     latest = max(latest, os.path.getmtime(fpath))
 

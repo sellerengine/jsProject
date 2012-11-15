@@ -1,5 +1,7 @@
-reqs = ["cs!lib/ui.base", "cs!lib/zeroTimeout", "css!lib/ui/textbox"]
-module = (UiBase, ZeroTimeout) ->
+define([
+            "cs!lib/ui.base", "cs!lib/zeroTimeout", "css!lib/ui/textbox"
+        ], (
+            UiBase, ZeroTimeout) ->
     class TextBox extends UiBase
         constructor: (options) ->
             @options = $.extend(
@@ -78,7 +80,5 @@ module = (UiBase, ZeroTimeout) ->
                     whiteSpace: 'nowrap'
             tester.insertAfter(@)
             return tester
-            
-        
-define(reqs, module)
+)
         

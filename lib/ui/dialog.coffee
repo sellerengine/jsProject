@@ -1,5 +1,5 @@
-reqs = ["cs!lib/ui.base", "cs!lib/ui/shade", "css!lib/ui/dialog"]
-module = (UiBase, Shade) ->
+define(["cs!lib/ui.base", "cs!lib/ui/shade", 
+        "css!lib/ui/dialog"], (UiBase, Shade) ->
     class Dialog extends UiBase
         ### A Dialog that adds to the end of the body and shades itself
         immediately.
@@ -45,6 +45,4 @@ module = (UiBase, Shade) ->
                 height: @dlgOptions.height + 'px'
                 
             Shade.show(@, hide: () => @remove())
-                
-define(reqs, module)
-        
+)

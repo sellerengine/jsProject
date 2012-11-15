@@ -33,9 +33,9 @@ define(["cs!lib/ui.base", "cs!lib/ui/shade",
             
             @appendTo('body')
             
-            # Find upper-left corner
-            dialogX = Math.max(0, ww * 0.5 - @outerWidth())
-            dialogY = Math.max(0, wt + wh * 0.5 - @outerHeight())
+            # Find upper-left corner of viewport
+            dialogX = Math.max(0, (ww - @outerWidth()) * 0.5)
+            dialogY = Math.max(0, (wh - @outerHeight()) * 0.5)
             
             @css
                 position: 'absolute'

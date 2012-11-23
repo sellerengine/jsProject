@@ -11,6 +11,13 @@ define [ "cs!lib/ui.base" ], (UiBase) ->
                     afterDrag: null
                     childSelector: null
                     handleSelector: null
+                    ### isLinear - if false, swap elements when the mouse moves
+                    over a new eligible drag child rather than removing from 
+                    our old position and inserting at the new one.  For
+                    layouts that aren't linear (for instance, a 2D grid) this
+                    is more consistent behavior.
+                    ###
+                    isLinear: true
                 }
                 options
             )
@@ -85,12 +92,23 @@ define [ "cs!lib/ui.base" ], (UiBase) ->
                                 return false
 
                             # REPLACE!
-                            ci = $c.index()
-                            di = @_dragElement.index()
-                            if ci < di
-                                @_dragElement.detach().insertBefore($c)
+                            if @options.isLinear
+                                ci = $c.index()
+                                di = @_dragElement.index()
+                                if ci < di
+                                    @_dragElement.detach().insertBefore($c)
+                                else
+                                    @_dragElement.detach().insertAfter($c)
                             else
-                                @_dragElement.detach().insertAfter($c)
+                                # We want to swap $c with @_dragElement
+                                # Thanks to bobince at http://stackoverflow.com/questions/698301/is-there-a-native-jquery-function-to-switch-elements
+                                d = @_dragElement[0]
+                                aparent = c.parentNode
+                                asibling = c.nextSibling
+                                if asibling == d
+                                    asibling = c
+                                d.parentNode.insertBefore(c, d)
+                                aparent.insertBefore(d, asibling)
                             @_dragLastSwap = $c
                             break
 

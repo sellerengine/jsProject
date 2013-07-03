@@ -2,9 +2,9 @@ define(
     [ "cs!lib/ui.base" ]
     (UiBase) ->
         class ListBox extends UiBase
-            constructor: (options = {}) ->
+            constructor: (@options = {}) ->
                 super $('<select></select>')
-                if options.multiple
+                if @options.multiple
                     this.attr('multiple', 'multiple')
                     
                 @reset()
@@ -16,6 +16,12 @@ define(
                 if @_isFirst
                     @_isFirst = false
                     this.trigger('change')
+                else if @options.sorted
+                    newOrder = this.children('option').sort (a, b) ->
+                        at = $(a).text().toLocaleLowerCase()
+                        bt = $(b).text().toLocaleLowerCase()
+                        return at > bt ? 1 : -1
+                    this.empty().append(newOrder)
                     
                     
             remove: (val, newVal) ->

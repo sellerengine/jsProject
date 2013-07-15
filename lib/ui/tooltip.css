@@ -2,6 +2,7 @@
 /* Not just ui-tooltip to avoid conflict with other libraries */
 .jspui-tooltip {
     position: absolute;
+    /* Don't set left and top, since we need auto */
     display: inline-block;
     background-color: #fff;
     border: solid 1px #888;

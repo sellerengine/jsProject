@@ -12,40 +12,39 @@ define [ "cs!lib/ui.base", "css!lib/ui/tooltip" ], (UiBase) ->
             @options = options
             super('<div class="jspui-tooltip"></div>')
             @html(options.html)
-            @css
-                # Note - we have to add an offset to X so that mouse movement
-                # doesn't go on us again
-                left: options.left + 10 + 'px'
-                top: options.top + 'px'
             @appendTo('body')
 
-            mw = @outerWidth(true)
-            mh = @outerHeight(true)
-            pos = @offset()
+            # Note that we start in the upper left so that all of our dom is
+            # flowed correctly from the start and we can trust all of the
+            # sizes we have.  This lets us only measure ourselves once.
+            mw = @outerWidth()
+            mh = @outerHeight()
+
             # Box the window
             wl = $(window).scrollLeft()
             wr = wl + $(window).width()
             wt = $(window).scrollTop()
             wb = wt + $(window).height()
+
             @isLeft = false
-
+            cssOpts = {}
             if options.preferLeft and options.left - 10 - mw >= wl
-                # We shouldn't be wrapping
-                @css('left', '')
-                @css('right', wr - (options.left - 10) + 'px')
+                # OK, hang off to the left side, we won't wrap
+                cssOpts.right = wr - (options.left - 10) + 'px'
                 @isLeft = true
-            else if pos.left + mw >= wr
-                @css('left', '')
-                @css('right', wr - (options.left - 10) + 'px')
+            else if (options.left + 10 + mw >= wr \
+                    and options.left - 10 - mw >= wl)
+                # Also to the left, because our right edge goes over and we
+                # would be completely visible on the left.
+                cssOpts.right = wr - (options.left - 10) + 'px'
                 @isLeft = true
+            else
+                # Hang to the right
+                cssOpts.left = options.left + 10
 
-            # Moving left/right when we're off the right side can change 
-            # our width, which changes our height
-            mh = @outerHeight(true)
-            if pos.top + mh >= wb
-                # Don't go above the top of the window though
-                sh = wt
-                @css('top', Math.max(sh, options.top - mh) + 'px')
+            # Don't go over the bottom but definitely not over the top
+            cssOpts.top = Math.min(options.top, Math.max(0, wb - mh)) + 'px'
+            @css(cssOpts)
 
 
         remove: (newX, newY) ->

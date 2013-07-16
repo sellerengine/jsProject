@@ -2,7 +2,11 @@
 /* Not just ui-tooltip to avoid conflict with other libraries */
 .jspui-tooltip {
     position: absolute;
-    /* Don't set left and top, since we need auto */
+    /* left and top 0 greatly accelerates measuring ourselves because the
+      browser doesn't have to figure out our flow first, it just sticks us
+      in the corner. */
+    left: 0;
+    top: 0;
     display: inline-block;
     background-color: #fff;
     border: solid 1px #888;

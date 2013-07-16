@@ -30,17 +30,20 @@ define [ "cs!lib/ui.base", "css!lib/ui/tooltip" ], (UiBase) ->
             cssOpts = {}
             if options.preferLeft and options.left - 10 - mw >= wl
                 # OK, hang off to the left side, we won't wrap
+                cssOpts.left = 'auto'
                 cssOpts.right = wr - (options.left - 10) + 'px'
                 @isLeft = true
             else if (options.left + 10 + mw >= wr \
                     and options.left - 10 - mw >= wl)
                 # Also to the left, because our right edge goes over and we
                 # would be completely visible on the left.
+                cssOpts.left = 'auto'
                 cssOpts.right = wr - (options.left - 10) + 'px'
                 @isLeft = true
             else
                 # Hang to the right
                 cssOpts.left = options.left + 10
+                cssOpts.right = 'auto'
 
             # Don't go over the bottom but definitely not over the top
             cssOpts.top = Math.min(options.top, Math.max(0, wb - mh)) + 'px'

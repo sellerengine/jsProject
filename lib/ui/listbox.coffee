@@ -20,7 +20,7 @@ define(
                     newOrder = this.children('option').sort (a, b) ->
                         at = $(a).text().toLocaleLowerCase()
                         bt = $(b).text().toLocaleLowerCase()
-                        return at > bt ? 1 : -1
+                        return if at > bt then 1 else -1
                     this.empty().append(newOrder)
                     
                     
